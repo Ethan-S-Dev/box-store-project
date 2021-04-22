@@ -1,0 +1,272 @@
+﻿<Window x:Class="BoxStoreView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BoxStoreView"
+        mc:Ignorable="d"
+        Title="Box Store v1.1" Height="450" Width="800"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    <Window.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border BorderBrush="DimGray"
+                                BorderThickness="1"
+                                CornerRadius="2"
+                                Margin="0,1"
+                                Padding="2,0"
+                                Background="LightGray">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="LightGray"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                CornerRadius="2"
+                                Padding="3,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <WrapPanel Orientation="Horizontal" 
+                       Margin="2">
+                <TextBlock Text="Enter new Box:" Margin="2,5"/>
+
+                <Border Background="LightGray" 
+                        Margin="2"
+                        CornerRadius="2">
+                    <StackPanel Orientation="Horizontal" Margin="5,2">
+                        <TextBlock Text="X:" Margin="2,3"/>
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding NewBox.X}"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="LightGray" 
+                        Margin="2"
+                        CornerRadius="2">
+                    <StackPanel Orientation="Horizontal" Margin="5,2">
+                        <TextBlock Text="Y:" Margin="2,3"/>
+                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding NewBox.Y}"/>
+                    </StackPanel>
+                </Border>
+                <Button Content="Add" Margin="2" Background="LightGray" Command="{Binding AddBoxCommand}"/>
+                <Popup IsOpen="{Binding PopupOpen}" Grid.ColumnSpan="2" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top"
+                       HorizontalOffset="40">
+                    <Border Background="LightGray"
+                    BorderBrush="Gray"
+                    BorderThickness="2"
+                    CornerRadius="2"
+                    Padding="5">
+                        <StackPanel>
+                            <TextBlock Text="This Boxes Has Bean Removed!" HorizontalAlignment="Center"/>
+                            <ListBox ItemsSource="{Binding RemovedBoxes}"
+                             Background="Transparent"
+                             >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel  Orientation="Horizontal">
+                                            <TextBlock Text="Box" Margin="0,0,4,0"/>
+                                            <TextBlock Text="Id:" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding Id}" Margin="0,0,4,0"/>
+                                            <TextBlock Text="X:" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding X}" Margin="0,0,4,0"/>
+                                            <TextBlock Text="Y:" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding Y}" Margin="0,0,4,0"/>
+                                            <TextBlock Text="Quantity:" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding Quantity}" Margin="0,0,4,0"/>
+                                            <TextBlock Text="Last Time Bought:" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding LastTimeBought.Day}"/>
+                                            <TextBlock Text="/"/>
+                                            <TextBlock Text="{Binding LastTimeBought.Month}"/>
+                                            <TextBlock Text="/"/>
+                                            <TextBlock Text="{Binding LastTimeBought.Year}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <Button Content="Ok" Command="{Binding ClosePopupCommand}" HorizontalAlignment="Center" 
+                            Padding="10" 
+                            Margin="3"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+            </WrapPanel>
+            
+            <Border Margin="5"
+                    Grid.Row="1"
+                    BorderThickness="3"
+                    BorderBrush="Gray"
+                    Background="WhiteSmoke"
+                    CornerRadius="2">
+                <ListView ItemsSource="{Binding Boxes}" Background="Transparent" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Orientation="Horizontal">
+                                <TextBlock Text="Box" Margin="0,0,4,0"/>
+                                <TextBlock Text="Id:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Id}" Margin="0,0,4,0"/>
+                                <TextBlock Text="X:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding X}" Margin="0,0,4,0"/>
+                                <TextBlock Text="Y:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Y}" Margin="0,0,4,0"/>
+                                <TextBlock Text="Quantity:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Quantity}" Margin="0,0,4,0"/>
+                                <TextBlock Text="Last Time Bought:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding LastTimeBought.Day}"/>
+                                <TextBlock Text="/"/>
+                                <TextBlock Text="{Binding LastTimeBought.Month}"/>
+                                <TextBlock Text="/"/>
+                                <TextBlock Text="{Binding LastTimeBought.Year}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <WrapPanel Orientation="Horizontal"
+                           Margin="2">
+                    <TextBlock Text="Search:" Margin="2,5"/>
+
+                    <Border Background="LightGray" 
+                        Margin="2"
+                        CornerRadius="2">
+                        <StackPanel Orientation="Horizontal" Margin="5,2">
+                            <TextBlock Text="X:" Margin="2,3"/>
+                            <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding SearchTicket.X}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="LightGray" 
+                        Margin="2"
+                        CornerRadius="2">
+                        <StackPanel Orientation="Horizontal" Margin="5,2">
+                            <TextBlock Text="Y:" Margin="2,3"/>
+                            <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding SearchTicket.Y}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="LightGray" 
+                        Margin="2"
+                        CornerRadius="2">
+                        <StackPanel Orientation="Horizontal" Margin="5,2">
+                            <TextBlock Text="Edges Size Multiplier:" Margin="2,3"/>
+                            <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding SearchTicket.MaxSizeMulti}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="LightGray" 
+                        Margin="2"
+                        CornerRadius="2">
+                        <StackPanel Orientation="Horizontal" Margin="5,2">
+                            <TextBlock Text="Max Box Types:" Margin="2,3"/>
+                            <TextBox PreviewTextInput="TextBox_PreviewTextInput_1" Width="50" Text="{Binding SearchTicket.MaxDifBoxes}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="LightGray" 
+                        Margin="2"
+                        CornerRadius="2">
+                        <StackPanel Orientation="Horizontal" Margin="5,2">
+                            <TextBlock Text="Amount:" Margin="2,3"/>
+                            <TextBox PreviewTextInput="TextBox_PreviewTextInput_1" Width="50" Text="{Binding SearchTicket.Amount}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Content="Search" Margin="2" Background="LightGray" Command="{Binding SearchBoxesCommand}"/>
+                </WrapPanel>
+                <Border Background="LightGray"
+                        HorizontalAlignment="Center"
+                        Padding="5,2"
+                        CornerRadius="2"
+                        BorderThickness="1"
+                        BorderBrush="Gray">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SearchSuccess}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <TextBlock Text="Couldn't find a full match, this is the best we can offer." />
+                </Border>
+
+            </StackPanel>
+            <Border Margin="5"
+                    Grid.Row="1"
+                    BorderThickness="3"
+                    BorderBrush="Gray"
+                    Background="WhiteSmoke"
+                    CornerRadius="2">
+                <ListView ItemsSource="{Binding Orders}" Background="Transparent" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Orientation="Horizontal">
+                                <TextBlock Text="Box" Margin="0,0,4,0"/>
+                                <TextBlock Text="Id:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Box.Id}" Margin="0,0,4,0"/>
+                                <TextBlock Text="X:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Box.X}" Margin="0,0,4,0"/>
+                                <TextBlock Text="Y:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Box.Y}" Margin="0,0,4,0"/>
+                                <TextBlock Text="Amount:" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Amount}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+
+            <Button Content="Buy" 
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Margin="2" 
+                    Background="LightGray" 
+                    Command="{Binding BuyBoxesCommand}"/>
+        </Grid>
+    </Grid>
+</Window>
