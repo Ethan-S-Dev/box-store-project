@@ -14,6 +14,8 @@ namespace BoxStoreViewModel
         public ObservableCollection<Box> RemovedBoxes { get => removedBoxes; set => Set(ref removedBoxes, value); }
         public ObservableCollection<BoxOrder> Orders { get => orders; set => Set(ref orders, value); }        
         public bool SearchSuccess { get => searchSuccess; set => Set(ref searchSuccess, value); }
+        public bool NoMatches { get => noMatches; set => Set(ref noMatches, value); }
+        public bool AddSuccess { get => addSuccess; set => Set(ref addSuccess, value); }
         public bool PopupOpen { get => popupOpen; set => Set(ref popupOpen, value); }
         public RelayCommand AddBoxCommand { get; set; }
         public RelayCommand SearchBoxesCommand { get; set; }
@@ -30,6 +32,7 @@ namespace BoxStoreViewModel
             Boxes = new ObservableCollection<Box>(bSA.AllBoxes);
             SearchTicket = new SearchTicket();
             SearchSuccess = true;
+            AddSuccess = true;
             bSA.BoxCleanUp += BSA_BoxCleanUp;
         }
 
@@ -39,6 +42,8 @@ namespace BoxStoreViewModel
         private ObservableCollection<BoxOrder> orders;
         private SearchTicket searchTicket;
         private bool searchSuccess;
+        private bool addSuccess;
+        private bool noMatches;
         private ObservableCollection<Box> removedBoxes;
         private bool popupOpen;
 
@@ -55,8 +60,9 @@ namespace BoxStoreViewModel
         }
         private void AddBox()
         {
-            if (NewBox.X <= 0 || NewBox.Y <= 0) return;
+            if (NewBox.X <= 0 || NewBox.Y <= 0 || NewBox.Quantity <= 0) { AddSuccess = false; return; }
             bSA.AddBox(NewBox);
+            AddSuccess = true;
             NewBox = new Box();
             Boxes = new ObservableCollection<Box>(bSA.AllBoxes);
         }
@@ -64,13 +70,15 @@ namespace BoxStoreViewModel
         {
             bool succes;
             Orders = new ObservableCollection<BoxOrder>(bSA.Search(SearchTicket, out succes));
-            SearchSuccess = succes;
+            if (Orders.Count == 0) { NoMatches = true; SearchSuccess = true; }
+            else { NoMatches = false; SearchSuccess = succes; }                   
         }
         private void BuyBoxes()
         {
             bSA.BuyBoxes(Orders);
             Orders = new ObservableCollection<BoxOrder>();
             Boxes = new ObservableCollection<Box>(bSA.AllBoxes);
+            NoMatches = false; SearchSuccess = true;
         }
     }
 }

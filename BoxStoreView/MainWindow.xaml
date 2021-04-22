@@ -62,71 +62,100 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <WrapPanel Orientation="Horizontal" 
+            <StackPanel>
+                <WrapPanel Orientation="Horizontal" 
                        Margin="2">
-                <TextBlock Text="Enter new Box:" Margin="2,5"/>
+                    <TextBlock Text="Enter new Box:" Margin="2,5"/>
 
-                <Border Background="LightGray" 
+                    <Border Background="LightGray" 
                         Margin="2"
                         CornerRadius="2">
-                    <StackPanel Orientation="Horizontal" Margin="5,2">
-                        <TextBlock Text="X:" Margin="2,3"/>
-                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding NewBox.X}"/>
-                    </StackPanel>
-                </Border>
-                <Border Background="LightGray" 
+                        <StackPanel Orientation="Horizontal" Margin="5,2">
+                            <TextBlock Text="X:" Margin="2,3"/>
+                            <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding NewBox.X}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="LightGray" 
                         Margin="2"
                         CornerRadius="2">
-                    <StackPanel Orientation="Horizontal" Margin="5,2">
-                        <TextBlock Text="Y:" Margin="2,3"/>
-                        <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding NewBox.Y}"/>
-                    </StackPanel>
-                </Border>
-                <Button Content="Add" Margin="2" Background="LightGray" Command="{Binding AddBoxCommand}"/>
-                <Popup IsOpen="{Binding PopupOpen}" Grid.ColumnSpan="2" 
+                        <StackPanel Orientation="Horizontal" Margin="5,2">
+                            <TextBlock Text="Y:" Margin="2,3"/>
+                            <TextBox PreviewTextInput="TextBox_PreviewTextInput" Width="50" Text="{Binding NewBox.Y}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="LightGray" 
+                        Margin="2"
+                        CornerRadius="2">
+                        <StackPanel Orientation="Horizontal" Margin="5,2">
+                            <TextBlock Text="Quantity:" Margin="2,3"/>
+                            <TextBox PreviewTextInput="TextBox_PreviewTextInput_1" Width="50" Text="{Binding NewBox.Quantity}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Button Content="Add" Margin="2" Background="LightGray" Command="{Binding AddBoxCommand}"/>
+                    <Popup IsOpen="{Binding PopupOpen}" Grid.ColumnSpan="2" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Top"
                        HorizontalOffset="40">
-                    <Border Background="LightGray"
+                        <Border Background="LightGray"
                     BorderBrush="Gray"
                     BorderThickness="2"
                     CornerRadius="2"
                     Padding="5">
-                        <StackPanel>
-                            <TextBlock Text="This Boxes Has Bean Removed!" HorizontalAlignment="Center"/>
-                            <ListBox ItemsSource="{Binding RemovedBoxes}"
+                            <StackPanel>
+                                <TextBlock Text="This Boxes Has Bean Removed!" HorizontalAlignment="Center"/>
+                                <ListBox ItemsSource="{Binding RemovedBoxes}"
                              Background="Transparent"
                              >
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel  Orientation="Horizontal">
-                                            <TextBlock Text="Box" Margin="0,0,4,0"/>
-                                            <TextBlock Text="Id:" Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding Id}" Margin="0,0,4,0"/>
-                                            <TextBlock Text="X:" Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding X}" Margin="0,0,4,0"/>
-                                            <TextBlock Text="Y:" Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding Y}" Margin="0,0,4,0"/>
-                                            <TextBlock Text="Quantity:" Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding Quantity}" Margin="0,0,4,0"/>
-                                            <TextBlock Text="Last Time Bought:" Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding LastTimeBought.Day}"/>
-                                            <TextBlock Text="/"/>
-                                            <TextBlock Text="{Binding LastTimeBought.Month}"/>
-                                            <TextBlock Text="/"/>
-                                            <TextBlock Text="{Binding LastTimeBought.Year}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                            <Button Content="Ok" Command="{Binding ClosePopupCommand}" HorizontalAlignment="Center" 
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel  Orientation="Horizontal">
+                                                <TextBlock Text="Box" Margin="0,0,4,0"/>
+                                                <TextBlock Text="Id:" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding Id}" Margin="0,0,4,0"/>
+                                                <TextBlock Text="X:" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding X}" Margin="0,0,4,0"/>
+                                                <TextBlock Text="Y:" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding Y}" Margin="0,0,4,0"/>
+                                                <TextBlock Text="Quantity:" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding Quantity}" Margin="0,0,4,0"/>
+                                                <TextBlock Text="Last Time Bought:" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding LastTimeBought.Day}"/>
+                                                <TextBlock Text="/"/>
+                                                <TextBlock Text="{Binding LastTimeBought.Month}"/>
+                                                <TextBlock Text="/"/>
+                                                <TextBlock Text="{Binding LastTimeBought.Year}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Button Content="Ok" Command="{Binding ClosePopupCommand}" HorizontalAlignment="Center" 
                             Padding="10" 
                             Margin="3"/>
-                        </StackPanel>
-                    </Border>
-                </Popup>
-            </WrapPanel>
-            
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                </WrapPanel>
+
+                <Border Background="LightGray"
+                        HorizontalAlignment="Center"
+                        Padding="5,2"
+                        CornerRadius="2"
+                        BorderThickness="1"
+                        BorderBrush="Gray">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AddSuccess}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <TextBlock Text="Incorrect Box values." />
+                </Border>
+
+            </StackPanel>
             <Border Margin="5"
                     Grid.Row="1"
                     BorderThickness="3"
@@ -234,7 +263,23 @@
                     </Border.Style>
                     <TextBlock Text="Couldn't find a full match, this is the best we can offer." />
                 </Border>
-
+                <Border Background="LightGray"
+                        HorizontalAlignment="Center"
+                        Padding="5,2"
+                        CornerRadius="2"
+                        BorderThickness="1"
+                        BorderBrush="Gray">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding NoMatches}" Value="false">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <TextBlock Text="Couldn't find Boxes." />
+                </Border>
             </StackPanel>
             <Border Margin="5"
                     Grid.Row="1"

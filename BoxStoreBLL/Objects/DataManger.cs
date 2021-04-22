@@ -29,11 +29,11 @@ namespace BoxStoreBLL
         public void AddBox(Box box)
         {
             LinkedTreeBox res;
-            if (boxTree.BoxExist(box, out res)) { res.BoxNode.Value.Quantity++; dataBase.Save(); return; } // Increase Quantity if exist
+            if (boxTree.BoxExist(box, out res)) { res.BoxNode.Value.Quantity += box.Quantity; dataBase.Save(); return; } // Increase Quantity if exist
 
 
             box.LastTimeBought = DateTimeOffset.Now;
-            box.Quantity = 1;
+            //box.Quantity = 1;
 
             boxesByDate.AddLast(box); // Add to Linked List
 
