@@ -120,9 +120,8 @@ namespace BoxStoreDataStructures
             if (node.Next == null)  return RemoveLast();
             if (node.Prive == null) return RemoveFirst();
 
-            var tmp = node.Prive;
             node.Next.Prive = node.Prive;
-            tmp.Next = node.Next;
+            node.Prive.Next = node.Next;
             counter--;
             return node.Value;
         }
