@@ -59,7 +59,7 @@ namespace BoxStoreUnitTest
             var quant = 6;
             var multi = 3.5;
 
-            api.AddBox(new Box() { X = x, Y = y });
+            api.AddBox(new Box() { X = x, Y = y,Quantity=quant });
 
             var search = new SearchTicket();
             search.X = x;
