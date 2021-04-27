@@ -56,9 +56,9 @@ namespace BoxStoreBLL
             if (boxToBuy.Quantity == quantity)
             {
                 boxTree.RemoveBox(boxToBuy); // Remove from tree
+
                 boxesByDate.RemoveNode(link.BoxNode); // Remove from linkedlist.
 
-                // TODO Remove from database
                 dataBase.RemoveBoxById(boxToBuy.Id); // Remove from database
 
                 return;

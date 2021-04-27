@@ -76,6 +76,8 @@ namespace BoxStoreDataStructures
                 else
                 if (value.CompareTo(toRemoveFather.Value) < 0) toRemoveFather.Left = null;
                 else toRemoveFather.Right = null;
+
+                count--;
                 return true;
             }
 
@@ -94,6 +96,8 @@ namespace BoxStoreDataStructures
                 if (value.CompareTo(toRemoveFather.Value) < 0) toRemoveFather.Left = toSwithc;
                 else toRemoveFather.Right = toSwithc;
 
+
+                count--;
                 return true;
             }
 
@@ -105,6 +109,7 @@ namespace BoxStoreDataStructures
                 else
                     root = toRemove.Right;
 
+                count--;
                 return true;
             }
             if (value.CompareTo(toRemoveFather.Value) < 0)
@@ -114,6 +119,7 @@ namespace BoxStoreDataStructures
                 else
                     toRemoveFather.Left = toRemove.Right;
 
+                count--;
                 return true;
             }
 
@@ -122,6 +128,7 @@ namespace BoxStoreDataStructures
             else
                 toRemoveFather.Right = toRemove.Right;
 
+            count--;
             return true;
         }
         public void PrintInOrderLeft()

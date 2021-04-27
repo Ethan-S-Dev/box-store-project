@@ -100,15 +100,15 @@ namespace BoxStoreDataStructures
             if (counter == 0)
                 throw new InvalidOperationException("List is empty!");
             LinkedListNode<T> temp = last;
-            if (counter > 1)
+            if (counter == 1)
             {
-                last = last.Prive;
-                last.Next = null;
+                first = null;
+                last = null;                
             }
             else
             {
-                first = null;
-                last = null;
+                last = last.Prive;
+                last.Next = null;
             }
             counter--;
             return temp.Value;
@@ -120,7 +120,9 @@ namespace BoxStoreDataStructures
             if (node.Next == null)  return RemoveLast();
             if (node.Prive == null) return RemoveFirst();
 
-            node.Prive.Next = node.Next;
+            var tmp = node.Prive;
+            node.Next.Prive = node.Prive;
+            tmp.Next = node.Next;
             counter--;
             return node.Value;
         }

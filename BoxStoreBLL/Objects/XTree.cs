@@ -34,6 +34,7 @@ namespace BoxStoreBLL
             if (node == null) throw new ArgumentException("Box doesnt exist.");
             var linkTreeBox = node.Value.Search(box.Y);
             if (!node.Value.Remove(linkTreeBox.Value)) throw new ArgumentException("Box doesnt exist.");
+            if (node.Value.Root == null) Remove(node.Value);
             return linkTreeBox.Value;
         }
         public bool BoxExist(Box box, out LinkedTreeBox res)
