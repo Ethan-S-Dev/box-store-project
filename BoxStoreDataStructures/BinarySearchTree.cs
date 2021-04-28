@@ -64,6 +64,14 @@ namespace BoxStoreDataStructures
                 }
             }
         }
+        public void Add(BinarySearchTreeNode<T> head, T value)
+        {
+            var comp = value.CompareTo(head.Value);
+            if (comp < 0) { if (head.Left == null){ head.Left = new BinarySearchTreeNode<T>(value); count++; } else Add(head.Left, value); }
+            else { if (head.Right == null) { head.Right = new BinarySearchTreeNode<T>(value); count++; } else Add(head.Right, value); }
+            
+        }
+
         public bool Remove(T value)
         {
             BinarySearchTreeNode<T> toRemoveFather = null;
@@ -293,7 +301,7 @@ namespace BoxStoreDataStructures
         }
     }
 
-    public class BinarySearchTreeNode<T>
+    public class BinarySearchTreeNode<T> where T : IComparable<T>
     {
         public T Value;
         public bool IsLeaf => (Left == null && Right == null);
@@ -305,6 +313,7 @@ namespace BoxStoreDataStructures
             Value = value;
         }
 
+        
         public void PrintOrdered()
         {
             if (Left != null) Left.PrintOrdered();

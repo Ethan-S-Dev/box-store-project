@@ -18,14 +18,16 @@ namespace BoxStoreBLL
         }
         public int CompareTo(double otherX) => this.X.CompareTo(otherX);
         public int CompareTo(YTree other) => this.X.CompareTo(other.X);
-        public BinarySearchTreeNode<LinkedTreeBox> Search(double y)
+        public BinarySearchTreeNode<LinkedTreeBox> Search(double y, out BinarySearchTreeNode<LinkedTreeBox> father)
         {
+            father = null;
             var temp = HeadNode;
             while(true)
             { 
                 if (temp == null) break;
                 var comp = temp.Value.CompareTo(y);
                 if (comp == 0) break;
+                father = temp;
                 if (comp > 0) temp = temp.Left;
                 else temp = temp.Right;
             }

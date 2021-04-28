@@ -28,22 +28,47 @@ namespace BoxStoreBLL
         }
         public void AddBox(Box box)
         {
-            LinkedTreeBox res;
-            if (boxTree.BoxExist(box, out res)) { res.BoxNode.Value.Quantity += box.Quantity; dataBase.Save(); return; } // Increase Quantity if exist
+            
+            var xTreeNode = boxTree.Search(box.X,out BinarySearchTreeNode<YTree> xFather);
+            if (xTreeNode != null)
+            {
+                var yTreeNode = xTreeNode.Value.Search(box.Y, out BinarySearchTreeNode<LinkedTreeBox> yFather);
+                if (yTreeNode != null)
+                {
+                    yTreeNode.Value.BoxNode.Value.Quantity += box.Quantity;
+                    dataBase.Save();
+                }
+                else
+                {
+                    box.LastTimeBought = DateTimeOffset.Now;
 
+                    boxesByDate.AddLast(box); // Add to Linked List
+                    var newNode = new LinkedTreeBox();
+                    newNode.BoxNode = boxesByDate.EndNode; // Take it from LinkedList
 
-            box.LastTimeBought = DateTimeOffset.Now;
-            //box.Quantity = 1;
+                    if (yFather == null) xTreeNode.Value.Add(newNode); // Add to tree
+                    else xTreeNode.Value.Add(yFather, newNode);
 
-            boxesByDate.AddLast(box); // Add to Linked List
+                    dataBase.AddBox(box); // Add to database
+                }
+            }
+            else
+            {
+                box.LastTimeBought = DateTimeOffset.Now;
 
-            res = new LinkedTreeBox();
-            res.BoxNode = boxesByDate.EndNode;
+                boxesByDate.AddLast(box); // Add to Linked List
+                var newNode = new LinkedTreeBox();
+                newNode.BoxNode = boxesByDate.EndNode; // Take it from LinkedList
 
-            boxTree.AddBox(res); // Add to tree
+                var newYTree = new YTree(box.X); // Create new Y Tree
+                newYTree.Add(newNode); // Add to Y Tree
 
+                if (xFather != null) boxTree.Add(xFather, newYTree); // Add to tree
+                else boxTree.Add(newYTree);
 
-            dataBase.AddBox(box); // Add to database
+                dataBase.AddBox(box); // Add to database
+            }
+
         }       
         public LinkedList<Box> GetAllBoxes() => boxesByDate;
         public void BuyBoxes(Box boxToBuy, int quantity)
