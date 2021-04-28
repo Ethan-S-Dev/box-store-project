@@ -44,7 +44,7 @@ namespace BoxStoreBLL
 
 
             dataBase.AddBox(box); // Add to database
-        }
+        }       
         public LinkedList<Box> GetAllBoxes() => boxesByDate;
         public void BuyBoxes(Box boxToBuy, int quantity)
         {
