@@ -17,7 +17,7 @@ Main objective was to make the fastest and must efficant adding, searching and b
 
 ### Application
 - **WPF**
-- **EF 6**
+- **Entity Framework 6**
 - **.NET Framework 4.8**
 
 
