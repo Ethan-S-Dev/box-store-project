@@ -7,7 +7,7 @@ Main objective was to make the fastest and must efficant adding, searching and b
 ## Technologies
  
 ### Architecture
-- **layered architecture**
+- **Layered Architecture**
 - **MVVM design pattern**
 
 ### Data Structures:
