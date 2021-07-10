@@ -5,7 +5,7 @@ This is a project I did for my data structure class. Main objective was to make 
 
 ## Screenshots
 
-<img src="screenshots/Screenshot_1.png" width="240px"/><img src="screenshots/Screenshot_4.png" width="240px"/>
+<img src="screenshots/Screenshot_1.png" height="720px"/><img src="screenshots/Screenshot_4.png" height="720px"/>
 
 ## Technologies
  
