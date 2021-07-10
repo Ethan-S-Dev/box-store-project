@@ -1,8 +1,7 @@
 # Box Store Project WPF
 ### A Data Structure Class Project
 
-This is a project I did for my data structure class.
-Main objective was to make the fastest and must efficant adding, searching and buying boxes.
+This is a project I did for my data structure class. Main objective was to make the fastest and most efficient adding, searching and buying different boxes.
 
 ## Technologies
  
